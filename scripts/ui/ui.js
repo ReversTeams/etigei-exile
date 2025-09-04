@@ -6,7 +6,6 @@ const linkButton = url => () => {
 };
 
 // Updater
-
 let updateText = "@etigeox.news.update"
 let buttonUpdateText = ""
 let updateButtonSize = {
@@ -30,7 +29,7 @@ const UpdateChecker = () => {
 					width: 200,
 					height: 60
 				}
-			}
+			};
 
 			Vars.ui.menuGroup["fill(arc.func.Cons)"](c => {
 				c.bottom().left();
@@ -111,7 +110,6 @@ const UpdateChecker = () => {
 }
 
 // Startup UI
-
 const NewsDialog = () => {
 	let dialog, news, checker;
 
@@ -129,6 +127,7 @@ const NewsDialog = () => {
 		dialog.addCloseListener();
 
 		MapButton();
+		AddonsButton();
 		MainMenu();
 		checker = UpdateChecker();
 		checker.init();
@@ -172,7 +171,6 @@ const NewsDialog = () => {
 	};
 
 	const loadButtons = () => {
-		//Check if not on mobile Landscape mode
 		if (true || !(Vars.mobile && !Core.graphics.isPortrait())) {
 			dialog.cont.row();
 
@@ -225,7 +223,6 @@ const NewsDialog = () => {
 };
 
 // Map UI
-
 const MapButton = () => {
 	Vars.ui.menuGroup["fill(arc.func.Cons)"](c => {
 		c.bottom().left();
@@ -281,8 +278,139 @@ const MapDialog = (mapname, dim) => {
 	SectorDialog.show();
 };
 
-// Startup
+// Addons Menu
+function AddonsButton() {
+	var icons = {};
+	var mods = ['etigeox', 'edt', 'blastanium', 'rubiginosus', 'accura', 'sefirah'];
+	var buttons = [];
 
+	for (var i = 0; i < mods.length; i++) {
+		var mod = Vars.mods.getMod(mods[i]);
+		if (mod != null && mod.enabled() === true) {
+			icons[i] = Icon.play;
+		} else {
+			icons[i] = Icon.cancel;
+		}
+	}
+
+	function addButton(btn, index) {
+		buttons.push({ button: btn, index: index });
+		return btn;
+	}
+
+	function paintButtons() {
+		for (var i = 0; i < buttons.length; i++) {
+			var entry = buttons[i];
+			var modName = mods[entry.index];
+			var mod = Vars.mods.getMod(modName);
+
+			if (mod != null) {
+				if (mod.enabled() === false) {
+					entry.button.get().setColor(255, 0, 0, 1);
+				} else {
+					entry.button.get().setColor(0, 255, 0, 1);
+				}
+			} else {
+				entry.button.get().setColor(255, 0, 0, 1);
+			}
+
+		}
+	}
+
+	Vars.ui.menuGroup["fill(arc.func.Cons)"](function (c) {
+		c.top().right();
+		c["table(arc.func.Cons)"](function (t) {
+			t.defaults().size(48 * 4, 64).pad(3);
+			var eb = t.button("Etigei Exile", icons[0], function () { checkMod(0); });
+			var et = t.button("Timber", icons[1], function () { checkMod(1); });
+			addButton(eb, 0);
+			addButton(et, 1);
+		}).size(150, 75).padTop(200).padRight(48 * 3);
+	});
+
+	Vars.ui.menuGroup["fill(arc.func.Cons)"](function (c) {
+		c.top().right();
+		c["table(arc.func.Cons)"](function (t) {
+			t.defaults().size(48 * 4, 64).pad(3);
+			var b = t.button("Blastanium", icons[2], function () { checkMod(2); });
+			var r = t.button("Rubiginosus (Legacy)", icons[3], function () { checkMod(3); });
+			addButton(b, 2);
+			addButton(r, 3);
+		}).size(150, 75).padTop(200 + 64 * 1.1).padRight(48 * 3);
+	});
+
+	Vars.ui.menuGroup["fill(arc.func.Cons)"](function (c) {
+		c.top().right();
+		c["table(arc.func.Cons)"](function (t) {
+			t.defaults().size(48 * 4, 64).pad(3);
+			var a = t.button("Terra Accura", icons[4], function () { checkMod(4); });
+			var s = t.button("Sefirah", icons[5], function () { checkMod(5); });
+			addButton(a, 4);
+			addButton(s, 5);
+		}).size(150, 75).padTop(200 + 64 * 2.2).padRight(48 * 3);
+	});
+
+	paintButtons();
+}
+
+const checkMod = (opt) => {
+	const mod = Vars.mods.getMod("etigeox");
+
+	Vars.ui.showCustomConfirm(
+		Core.bundle.format("etigeox.addon", mod.meta.version), "@etigeox.addon.description",
+		"@ok", "@cancel",
+		() => {
+			switch (opt) {
+				case 0:
+					Vars.ui.showCustomConfirm(
+						Core.bundle.format("etigeox.update", mod.meta.version), "@etigeox.update.description",
+						"@ok", "@cancel",
+						() => {
+							Vars.ui.mods.githubImportMod("Lysent/etigei-exile", false);
+						},
+						() => { }
+					);
+					break;
+
+				case 1:
+					Vars.ui.mods.githubImportMod("https://github.com/lysent/timber", false);
+					break;
+
+				case 3:
+					Vars.ui.mods.githubImportMod("https://github.com/Mitemi/rubiginosus", false);
+					break;
+
+				case 2:
+					Vars.ui.mods.githubImportMod("https://github.com/Mitemi/Blastanium", false);
+					break;
+
+				case 4:
+					Vars.ui.showCustomConfirm(
+						Core.bundle.format("etigeox.accura", mod.meta.version), "@etigeox.accura.description",
+						"@ok", "@cancel",
+						() => { },
+						() => { }
+					);
+					break;
+
+				case 5:
+					Vars.ui.showCustomConfirm(
+						Core.bundle.format("etigeox.sefirah", mod.meta.version), "@etigeox.sefirah.description",
+						"@ok", "@cancel",
+						() => { },
+						() => { }
+					);
+					break;
+
+				default:
+					break;
+			}
+		},
+		() => { }
+	);
+};
+
+// Startup
 Events.on(ClientLoadEvent, () => {
 	const newsInstance = NewsDialog();
 	newsInstance.load();
