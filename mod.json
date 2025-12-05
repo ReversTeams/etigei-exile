@@ -4,7 +4,7 @@
   "author": "[[]lime]Mitemi[[]lightgray] & [[]cyan]Tikup",
   "description": "Etigei Exilium is the successor to the old Etigeox mod, featuring two planets and adding 169 blocks, 23 items, 22 units, and 22 sectors with content from the Etigeox universe. \n\nEstablish colonies on the frozen planet of [[]sky]Neoulandia[[]white], a new campaign with its own tech tree, destructible environment, such as destructible trees from which you can harvest timber, emphasis on unit cargo, and unique map design. The entire Neoulandia campaign is interconnected with each map having direct connections to other maps, branching into economy-focused sectors, classic survival or attack maps. \n\n[[]orange]Rubiginosus[[]white] presents a collection of hardcore maps, inspired by Rusted Warfare, initially designed for multiplayer using Serpulo and Erekir technology. These missions have been retrofitted for a campaign experience with unique challenges for each map. Completing the Rubiginosus campaign will unlock a special resource on Neoulandia.\n\n[[]red]Requires Timber (EDT) as a dependency.\n\n[[]white]Discord:[[]blue] https://discord.com/invite/TJKZgr6UDg",
   "subtitle": "Centrism is fun",
-  "repo": "Lysent/etigei-exile",
+  "repo": "ReversTeams/etigei-exile",
   "version": "2.1.7-2",
   "minGameVersion": "147",
 
