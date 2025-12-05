@@ -1,0 +1,6 @@
+log("Etigeox: Etigeox loaded", Vars.mods.getMod("etigeox").enabled())
+log("Etigeox: Timber loaded", Vars.mods.getMod("edt").enabled())
+log("Etigeox: Blastanium loaded", Vars.mods.getMod("blastanium").enabled())
+log("Etigeox: Rubiginosus loaded", Vars.mods.getMod("rubiginosus").enabled())
+log("Etigeox: Terra Accura loaded", Vars.mods.getMod("accura").enabled())
+log("Etigeox: Sefirah loaded", Vars.mods.getMod("sefirah").enabled())

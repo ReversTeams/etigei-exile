@@ -5,11 +5,11 @@
   "alwaysUnlocked": false,
   
   "research": {
-    "parent": "miss2",
+    "parent": "miss3",
     "objectives": [
       {
         "type": "SectorComplete",
-        "preset": "miss2"
+        "preset": "miss3"
       }
     ]
   }
